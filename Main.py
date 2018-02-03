@@ -19,7 +19,7 @@ board = [0, 0, 0,
 
 # Setup connections and wait for client to join
 if isServer:
-
+    
     # create an INET, STREAMing socket
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     # bind the socket to a public host, and a well-known port
@@ -29,20 +29,26 @@ if isServer:
 
     print("Waiting for connection")
     (client_socket, address) = server_socket.accept()
-
+    
+    server_socket.close()
+    
     print("Another player connected")
+    
 
 # attempt to join server
 else:
-
+    
     address = input("Enter server address: ")
-
+    
     # create an INET, STREAMing socket
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
+    
     # now connect to the web server on port 80 - the normal http port
     print("Connecting to server")
     client_socket.connect(('localhost', 4444))
+    
+    
+
 
 
 def make_move(position):
@@ -53,8 +59,8 @@ def make_move(position):
 def receive_move():
     receivedMove = client_socket.recv()
     board[receivedMove] = opponent_player_number
-
-
+    
+    
 # Luc Game
 # Board Layout:
 #    0 1 2
