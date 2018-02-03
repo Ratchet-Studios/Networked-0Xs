@@ -80,7 +80,6 @@ def convert_position(row, column):
 
 def is_game_over():
     # TODO implement win conditions
-    print("!!!")
     global victory
     if (board[0] == board[1] == board[2] != 0) or (board[0] == board[3] == board[6] != 0) or (board[0] == board[4] == board[8] != 0):
         if board[0] == mark:
@@ -108,14 +107,19 @@ if my_player_number == "o":
 
 while not game_over:
     show_board()
-    line = input('Enter a row and column in which to play from 1-3 (Eg: 1,3)\n')
-    row = int(line[0])
-    column = int(line[-1:])
-    position = convert_position(row, column)
 
-    if is_valid_move(position):
-        board[position] = mark
-    make_move(position)
+    valid =False
+    while not valid:
+        line = input('Enter a row and column in which to play from 1-3 (Eg: 1,3)\n')
+        row = int(line[0])
+        column = int(line[-1:])
+        position = convert_position(row, column)
+        if is_valid_move(position):
+            board[position] = mark
+            make_move(position)
+            valid = True
+        else: print("Invalid move, try again (x,y)")
+
     print("Waiting for opponent move...")
     receive_move()
     game_over = is_game_over()
