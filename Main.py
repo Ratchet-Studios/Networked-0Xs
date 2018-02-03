@@ -21,9 +21,9 @@ if isServer:
     # create an INET, STREAMing socket
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     # bind the socket to a public host, and a well-known port
-    server_socket.bind((socket.gethostname(), 4444))
+    server_socket.bind(('', 4444))
     # become a server socket
-    server_socket.listen(1)
+    server_socket.listen()
     
     print("Waiting for connection")
     (client_socket, address) = server_socket.accept()
@@ -40,7 +40,7 @@ else:
     
     # now connect to the web server on port 80 - the normal http port
     print("Connecting to server")
-    client_socket.connect((socket.gethostbyaddr(address, 4444), 4444))
+    client_socket.connect(('localhost', 4444))
 
 def makeMove(position):
     board[position] = my_player_number
