@@ -40,7 +40,7 @@ else:
     
     # now connect to the web server on port 80 - the normal http port
     print("Connecting to server")
-    client_socket.connect((address, 4444))
+    client_socket.connect((socket.gethostbyaddr(address, 4444), 4444))
 
 def makeMove(position):
     board[position] = my_player_number
