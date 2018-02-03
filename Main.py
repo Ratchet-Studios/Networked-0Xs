@@ -1,6 +1,8 @@
 # Noughts and cross game where one instance chooses to act as the server and the other as the client.
 
-isServer = input("Act as server? (Y/N):\n")
+isServer = input("Act as server? (Y/N):\n") == "N"
+
+board = []
 
 # Setup connections and wait for client to join
 if (isServer):
