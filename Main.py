@@ -116,6 +116,7 @@ while not game_over:
     if is_valid_move(position):
         board[position] = mark
     make_move(position)
+    show_board()
     print("Waiting for opponent move...")
     receive_move()
     game_over = is_game_over()
