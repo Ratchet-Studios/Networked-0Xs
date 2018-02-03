@@ -65,7 +65,7 @@ def receive_move():
 def show_board():
     print('{}|{}|{}\n'
           '{}|{}|{}\n'
-          '{}|{}|{}'.format(board[0],board[1],board[2],board[3],board[4],board[5],board[6],board[7],board[8]))
+          '{}|{}|{}'.format(board[0], board[1], board[2], board[3], board[4], board[5], board[6], board[7], board[8]))
 
 
 def is_valid_move(position):
@@ -75,8 +75,15 @@ def is_valid_move(position):
 def convert_position(row, column):
     return row * 3 + column
 
+
 def is_game_over():
-    #TODO implement win conditions
+    # TODO implement win conditions
+    if ((board[0] == board[1] == board[2]) or (board[3] == board[4] == board[5]) or (board[6] == board[7] == board[8])
+            or (board[0] == board[3] == board[6]) or (board[1] == board[4] == board[7]) or (board[2] == board[5] == board[8])
+            or (board[0] == board[4] == board[8]) or (board[2] == board[4] == board[6])):
+        return True
+    else:
+        return False
 
 
 # board above
