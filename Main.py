@@ -2,7 +2,10 @@ import socket
 
 # Noughts and cross game where one instance chooses to act as the server and the other as the client.
 
+CONST_EMPTY_SPACE_CHARACTER = "_"
+
 isServer = input('Act as server? (Y/N):\n').upper() == "Y"
+
 
 if isServer:
     my_player_number = "x"
@@ -13,9 +16,10 @@ else:
     opponent_player_number = "x"
     mark = "o"
 
-board = [0, 0, 0,
-         0, 0, 0,
-         0, 0, 0]
+board = []
+
+for i in range(0, 9):
+    board.append(CONST_EMPTY_SPACE_CHARACTER)
 
 # Setup connections and wait for client to join
 if isServer:
@@ -65,13 +69,19 @@ def receive_move():
 # 2  6|7|8
 
 def show_board():
-    print('{}|{}|{}\n'
-          '{}|{}|{}\n'
-          '{}|{}|{}'.format(board[0], board[1], board[2], board[3], board[4], board[5], board[6], board[7], board[8]))
+    # print('{}|{}|{}\n'
+    #       '- - -\n'
+    #       '{}|{}|{}\n'
+    #       '- - -\n'
+    #       '{}|{}|{}'.format(board[0], board[1], board[2], board[3], board[4], board[5], board[6], board[7], board[8]))
+    print('{} {} {}\n'
+          '{} {} {}\n'
+          '{} {} {}'
+          .format(board[0], board[1], board[2], board[3], board[4], board[5], board[6], board[7], board[8]))
 
 
 def is_valid_move(position):
-    return board[position] == 0
+    return board[position] == CONST_EMPTY_SPACE_CHARACTER
 
 
 def convert_position(row, column):
@@ -81,15 +91,15 @@ def convert_position(row, column):
 def is_game_over():
     # TODO implement win conditions
     global victory
-    if (board[0] == board[1] == board[2] != 0) or (board[0] == board[3] == board[6] != 0) or (board[0] == board[4] == board[8] != 0):
+    if (board[0] == board[1] == board[2] != CONST_EMPTY_SPACE_CHARACTER) or (board[0] == board[3] == board[6] != CONST_EMPTY_SPACE_CHARACTER) or (board[0] == board[4] == board[8] != CONST_EMPTY_SPACE_CHARACTER):
         if board[0] == mark:
             victory = True
         return True
-    elif (board[3] == board[4] == board[5] != 0) or (board[1] == board[4] == board[7] != 0) or (board[2] == board[4] == board[6] != 0):
+    elif (board[3] == board[4] == board[5] != CONST_EMPTY_SPACE_CHARACTER) or (board[1] == board[4] == board[7] != CONST_EMPTY_SPACE_CHARACTER) or (board[2] == board[4] == board[6] != CONST_EMPTY_SPACE_CHARACTER):
         if board[4] == mark:
             victory = True
             return True
-    elif (board[6] == board[7] == board[8] != 0) or (board[2] == board[5] == board[8] != 0):
+    elif (board[6] == board[7] == board[8] != CONST_EMPTY_SPACE_CHARACTER) or (board[2] == board[5] == board[8] != CONST_EMPTY_SPACE_CHARACTER):
         if board[8] == mark:
             victory = True
             return True
