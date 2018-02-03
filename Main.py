@@ -119,7 +119,7 @@ while not game_over:
             make_move(position)
             valid = True
         else: print("Invalid move, try again (x,y)")
-
+    show_board()
     print("Waiting for opponent move...")
     receive_move()
     game_over = is_game_over()
