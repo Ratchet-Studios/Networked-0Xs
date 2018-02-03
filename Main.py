@@ -99,11 +99,15 @@ def is_game_over():
 # show board and ask for a row and a column to play in
 game_over = False
 
+if my_player_number == 2:
+    print("Waiting for opponent move...")
+    receive_move()
+
 while not game_over:
     show_board()
     line = input('Enter a row and column in which to play from 1-3 (Eg: 1,3)\n')
-    row = line[0]
-    column = line[:-1]
+    row = int(line[0])
+    column = int(line[-1:])
     position = convert_position(row, column)
 
     if is_valid_move(position):
