@@ -121,9 +121,10 @@ victory = False
 if my_player_number == "o":
 	print("Waiting for opponent move...")
 	receive_move()
+	
+show_board()
 
 while not game_over:
-	show_board()
 	
 	valid = False
 	while not valid:
@@ -135,6 +136,17 @@ while not game_over:
 		if is_valid_move(position):
 			board[position] = mark
 			make_move(position)
+			game_over = is_game_over()
+			if game_over:
+				show_board()
+				if victory == 'draw':
+					print("You Drew!!!")
+				elif victory:
+					print('VICTORY')
+				else:
+					print('You Lose...')
+			
+				exit(0)
 			valid = True
 		elif not CONST_EMPTY_SPACE_CHARACTER in board:
 			victory = 'draw'
@@ -145,10 +157,11 @@ while not game_over:
 	print('Waiting for opponent move...')
 	receive_move()
 	game_over = is_game_over()
+	show_board()
 
-if victory:
-	print('VICTORY')
-elif victory == 'draw':
+if victory == 'draw':
 	print("You Drew!!!")
+elif victory:
+	print('VICTORY')
 else:
 	print('You Lose...')
