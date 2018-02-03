@@ -45,7 +45,7 @@ else:
 
     # now connect to the web server on port 80 - the normal http port
     print("Connecting to server")
-    client_socket.connect(('localhost', 4444))
+    client_socket.connect((address, 4444))
 
 
 def make_move(position):
