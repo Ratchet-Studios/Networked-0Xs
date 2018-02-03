@@ -1,6 +1,6 @@
 # Noughts and cross game where one instance chooses to act as the server and the other as the client.
 
-isServer = input("Act as server? (Y/N):\n") == "Y"
+isServer = input('Act as server? (Y/N):\n'') == 'Y'
 
 board = []
 
@@ -12,3 +12,11 @@ if (isServer):
 else:
     pass
 
+
+# Luc Game
+
+def showBoard():
+    print('\t|\t|\t\n'*3)
+
+
+board = []
