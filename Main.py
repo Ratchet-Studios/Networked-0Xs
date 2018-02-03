@@ -6,7 +6,6 @@ CONST_EMPTY_SPACE_CHARACTER = "_"
 
 isServer = input('Act as server? (Y/N):\n').upper() == "Y"
 
-
 if isServer:
     my_player_number = "x"
     opponent_player_number = "o"
@@ -89,7 +88,6 @@ def convert_position(row, column):
 
 
 def is_game_over():
-    # TODO implement win conditions
     global victory
     if (board[0] == board[1] == board[2] != CONST_EMPTY_SPACE_CHARACTER) or (board[0] == board[3] == board[6] != CONST_EMPTY_SPACE_CHARACTER) or (board[0] == board[4] == board[8] != CONST_EMPTY_SPACE_CHARACTER):
         if board[0] == mark:
@@ -118,23 +116,30 @@ if my_player_number == "o":
 while not game_over:
     show_board()
 
-    valid =False
+    valid = False
     while not valid:
         line = input('Enter a row and column in which to play from 1-3 (Eg: 1,3)\n')
         row = int(line[0])
         column = int(line[-1:])
         position = convert_position(row, column)
+
         if is_valid_move(position):
             board[position] = mark
             make_move(position)
             valid = True
-        else: print("Invalid move, try again (x,y)")
+        elif not CONST_EMPTY_SPACE_CHARACTER in board:
+            victory = 'draw'
+            break
+        else:
+            print('Invalid move, try again (x,y)')
     show_board()
-    print("Waiting for opponent move...")
+    print('Waiting for opponent move...')
     receive_move()
     game_over = is_game_over()
 
 if victory:
-    print("VICTORY")
+    print('VICTORY')
+elif victory == 'draw':
+    print("You Drew!!!")
 else:
-    print("You Lose...")
+    print('You Lose...')
