@@ -53,12 +53,12 @@ else:
 
 def make_move(position):
     board[position] = my_player_number
-    client_socket.send(position)
+    client_socket.send(str(position).encode('ascii'))
 
 
 def receive_move():
-    receivedMove = client_socket.recv()
-    board[receivedMove] = opponent_player_number
+    received_move = int(client_socket.recv(4096).decode('ascii'))
+    board[received_move] = opponent_player_number
     
     
 # Luc Game
