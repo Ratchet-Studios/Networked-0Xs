@@ -87,6 +87,7 @@ def is_game_over():
     if ((board[0] == board[1] == board[2]) or (board[3] == board[4] == board[5]) or (board[6] == board[7] == board[8])
             or (board[0] == board[3] == board[6]) or (board[1] == board[4] == board[7]) or (board[2] == board[5] == board[8])
             or (board[0] == board[4] == board[8]) or (board[2] == board[4] == board[6])):
+
         return True
     else:
         return False
@@ -100,7 +101,7 @@ game_over = False
 
 while not game_over:
     show_board()
-    line = input('Enter a row and column in which to play from 1-3\n Eg: 1,3')
+    line = input('Enter a row and column in which to play from 1-3 (Eg: 1,3)\n')
     row = line[0]
     column = line[:-1]
     position = convert_position(row, column)
