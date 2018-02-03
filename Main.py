@@ -75,6 +75,9 @@ def is_valid_move(position):
 def convert_position(row, column):
     return row * 3 + column
 
+def is_game_over():
+    #TODO implement win conditions
+
 
 # board above
 
@@ -94,3 +97,9 @@ while not game_over:
     make_move(position)
     print("Waiting for opponent move...")
     receive_move()
+    game_over = is_game_over()
+
+if victory:
+    print("VICTORY")
+else:
+    print("You Lose...")
