@@ -5,12 +5,12 @@ import socket
 isServer = input('Act as server? (Y/N):\n').upper() == "Y"
 
 if isServer:
-    my_player_number = 1
-    opponent_player_number = 2
+    my_player_number = "x"
+    opponent_player_number = "o"
     mark = "x"
 else:
-    my_player_number = 2
-    opponent_player_number = 2
+    my_player_number = "o"
+    opponent_player_number = "x"
     mark = "o"
 
 board = [0, 0, 0,
@@ -19,7 +19,7 @@ board = [0, 0, 0,
 
 # Setup connections and wait for client to join
 if isServer:
-    
+
     # create an INET, STREAMing socket
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     # bind the socket to a public host, and a well-known port
@@ -29,26 +29,23 @@ if isServer:
 
     print("Waiting for connection")
     (client_socket, address) = server_socket.accept()
-    
+
     server_socket.close()
-    
+
     print("Another player connected")
-    
+
 
 # attempt to join server
 else:
-    
+
     address = input("Enter server address: ")
-    
+
     # create an INET, STREAMing socket
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    
+
     # now connect to the web server on port 80 - the normal http port
     print("Connecting to server")
     client_socket.connect(('localhost', 4444))
-    
-    
-
 
 
 def make_move(position):
@@ -59,8 +56,7 @@ def make_move(position):
 def receive_move():
     received_move = int(client_socket.recv(4096).decode('ascii'))
     board[received_move] = opponent_player_number
-    
-    
+
 # Luc Game
 # Board Layout:
 #    0 1 2
@@ -84,22 +80,29 @@ def convert_position(row, column):
 
 def is_game_over():
     # TODO implement win conditions
-    if ((board[0] == board[1] == board[2]) or (board[3] == board[4] == board[5]) or (board[6] == board[7] == board[8])
-            or (board[0] == board[3] == board[6]) or (board[1] == board[4] == board[7]) or (board[2] == board[5] == board[8])
-            or (board[0] == board[4] == board[8]) or (board[2] == board[4] == board[6])):
-
+    print("!!!")
+    global victory
+    if (board[0] == board[1] == board[2] != 0) or (board[0] == board[3] == board[6] != 0) or (board[0] == board[4] == board[8] != 0):
+        if board[0] == mark:
+            victory = True
         return True
+    elif (board[3] == board[4] == board[5] != 0) or (board[1] == board[4] == board[7] != 0) or (board[2] == board[4] == board[6] != 0):
+        if board[4] == mark:
+            victory = True
+            return True
+    elif (board[6] == board[7] == board[8] != 0) or (board[2] == board[5] == board[8] != 0):
+        if board[8] == mark:
+            victory = True
+            return True
     else:
         return False
 
 
-# board above
-
-
 # show board and ask for a row and a column to play in
 game_over = False
+victory = False
 
-if my_player_number == 2:
+if my_player_number == "o":
     print("Waiting for opponent move...")
     receive_move()
 
